@@ -12,7 +12,7 @@
   "trustedDependencies-annotation": "Needed for bun to allow running install scripts",
   "type": "module",
   "scripts": {
-    "build": "vite build && vite build -c adapters/vercel-edge/vite.config.ts",
+    "build": "vite build && vite build --ssr",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "vite build -c adapters/vercel-edge/vite.config.ts",
@@ -25,7 +25,7 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
-    "vercel-build": "vite build && vite build -c adapters/vercel-edge/vite.config.ts",
+    "vercel-build": "vite build && vite build --ssr -c vite.config.ts",
     "qwik": "qwik"
   },
   "devDependencies": {

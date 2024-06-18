@@ -13,21 +13,19 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
 export default defineConfig(({ command, mode }: { command: string; mode: string }): UserConfig => {
-  const isSSRBuild = mode === "ssr";
-
   return {
     plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
     optimizeDeps: {
       exclude: [],
     },
     build: {
-      ssr: isSSRBuild,
-      outDir: isSSRBuild ? '.vercel/output/functions/api/_qwik-city.func' : 'dist',
+      ssr: mode === "ssr",
+      outDir: mode === "ssr" ? ".vercel/output/functions/_qwik-city.func" : "dist",
       rollupOptions: {
         output: {
-          dir: isSSRBuild ? '.vercel/output/functions/api/_qwik-city.func' : 'dist',
+          dir: mode === "ssr" ? ".vercel/output/functions/_qwik-city.func" : "dist",
         }
-      },
+      }
     },
     server: {
       headers: {
