@@ -20,7 +20,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
     },
     build: {
       ssr: true,
-      outDir: 'dist',  // Specify the output directory
+      outDir: 'dist',  // Output directory for client build
     },
     server: {
       headers: {

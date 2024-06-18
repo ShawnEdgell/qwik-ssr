@@ -21,7 +21,10 @@
   ],
   "functions": {
     "api/**/*.js": {
-      "runtime": "vercel-edge"
+      "runtime": "vercel-edge@canary"
+    },
+    "_qwik-city.func/index.js": {
+      "runtime": "vercel-edge@canary"
     }
   }
 }
