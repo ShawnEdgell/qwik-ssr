@@ -21,7 +21,7 @@
   ],
   "functions": {
     "_qwik-city.func/**": {
-      "runtime": "vercel-edge@canary"
+      "runtime": "vercel-edge@1.0.0"
     }
   }
 }
