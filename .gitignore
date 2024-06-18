@@ -43,3 +43,7 @@ lerna-debug.log*
 
 # Vercel
 .vercel
+
+# Qwik specific
+**/build
+**/output

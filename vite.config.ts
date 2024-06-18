@@ -20,7 +20,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
     },
     build: {
       ssr: true,
-      outDir: 'dist',  // Output directory for client build
+      outDir: '.vercel/output/functions/_qwik-city.func',  // Output directory for server build
     },
     server: {
       headers: {
