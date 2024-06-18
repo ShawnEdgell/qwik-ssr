@@ -22,10 +22,10 @@ export default defineConfig(({ command, mode }: { command: string; mode: string 
     },
     build: {
       ssr: isSSRBuild,
-      outDir: isSSRBuild ? 'api/_qwik-city.func' : 'dist',  // Output directory based on build mode
+      outDir: isSSRBuild ? '.vercel/output/functions/api/_qwik-city.func' : 'dist',
       rollupOptions: {
         output: {
-          dir: isSSRBuild ? 'api/_qwik-city.func' : 'dist',
+          dir: isSSRBuild ? '.vercel/output/functions/api/_qwik-city.func' : 'dist',
         }
       },
     },
