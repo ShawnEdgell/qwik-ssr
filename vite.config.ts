@@ -10,6 +10,7 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
   devDependencies: PkgDep;
   [key: string]: unknown;
 };
+
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -22,10 +23,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
     },
     build: {
       ssr: isSSRBuild,
-      outDir: ".vercel/output/functions/_qwik-city.func",
+      outDir: isSSRBuild ? ".vercel/output/functions/api/_qwik-city.func" : "dist",
       rollupOptions: {
         output: {
-          dir: ".vercel/output/functions/_qwik-city.func",
+          dir: isSSRBuild ? ".vercel/output/functions/api/_qwik-city.func" : "dist",
         }
       },
     },
@@ -46,25 +47,19 @@ function errorOnDuplicatesPkgDeps(
   devDependencies: PkgDep,
   dependencies: PkgDep,
 ) {
-  let msg = "";
   const duplicateDeps = Object.keys(devDependencies).filter(
-    (dep) => dependencies[dep],
+    (dep) => dependencies[dep]
   );
+
   const qwikPkg = Object.keys(dependencies).filter((value) =>
-    /qwik/i.test(value),
+    /qwik/i.test(value)
   );
-  msg = `Move qwik packages ${qwikPkg.join(", ")} to devDependencies`;
 
   if (qwikPkg.length > 0) {
-    throw new Error(msg);
+    throw new Error(`Move qwik packages ${qwikPkg.join(", ")} to devDependencies`);
   }
 
-  msg = `
-    Warning: The dependency "${duplicateDeps.join(", ")}" is listed in both "devDependencies" and "dependencies".
-    Please move the duplicated dependencies to "devDependencies" only and remove it from "dependencies"
-  `;
-
   if (duplicateDeps.length > 0) {
-    throw new Error(msg);
+    throw new Error(`The dependency "${duplicateDeps.join(", ")}" is listed in both "devDependencies" and "dependencies". Please move the duplicated dependencies to "devDependencies" only and remove it from "dependencies"`);
   }
 }
