@@ -20,7 +20,7 @@
     }
   ],
   "functions": {
-    "_qwik-city.func/**": {
+    "api/_qwik-city.func/**": {
       "runtime": "vercel-edge@1.0.0"
     }
   }

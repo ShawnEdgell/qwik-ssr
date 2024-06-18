@@ -13,14 +13,21 @@ const { dependencies = {}, devDependencies = {} } = pkg as any as {
 errorOnDuplicatesPkgDeps(devDependencies, dependencies);
 
 export default defineConfig(({ command, mode }: { command: string; mode: string }): UserConfig => {
+  const isSSRBuild = mode === "ssr";
+
   return {
     plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
     optimizeDeps: {
       exclude: [],
     },
     build: {
-      ssr: true,
-      outDir: 'api/_qwik-city.func',  // Output directory for server build
+      ssr: isSSRBuild,
+      outDir: isSSRBuild ? 'api/_qwik-city.func' : 'dist',  // Output directory based on build mode
+      rollupOptions: {
+        output: {
+          dir: isSSRBuild ? 'api/_qwik-city.func' : 'dist',
+        }
+      },
     },
     server: {
       headers: {
